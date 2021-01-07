@@ -78,3 +78,27 @@
 
 - id: 404NavHome
   translation: "返回首頁"
+
+- id: authorBy
+  translation: "作者"
+
+- id: translator
+  translation: "譯者"
+
+- id: reviewer
+  translation: "審稿者"
+
+- id: words
+  translation: "字"
+
+- id: readInAbout
+  translation: "閱讀大約"
+
+- id: minute
+  translation: "分鐘"
+
+- id: originallink
+  translation: "__"
+
+- id: archivedIn
+  translation: "歸檔於"
