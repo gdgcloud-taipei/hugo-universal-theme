@@ -26,11 +26,11 @@
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ .Name }} <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                       {{ range .Children }}
-                        <li><a href="{{ .URL }}">{{ .Name }}</a></li>
+                        <li><a class="dropdown{{ if eq $current.RelPermalink .URL | or (eq $current.Type $topLevel) | or (and (eq (default (trim .URL "/") .Identifier) "blog") (in (slice "taxonomy" "taxonomyTerm") $current.Kind)) }} active{{ end }}" href="{{ .URL }}">{{ .Name }}</a></li>
                       {{ end }}
                     </ul>
-                    {{ else }}
-                    <a href="{{ .URL }}">{{ .Name }}</a>
+                    {{ else }}                    
+                    <a target="{{ with .Params.target }}{{ . }}{{ end }}" href="{{ .URL }}">{{ .Pre }}{{ .Name }}</a>
                     {{ end  }}
                   </li>
                   {{ end }}
