@@ -98,7 +98,7 @@
   translation: "分鐘"
 
 - id: originallink
-  translation: "__"
+  translation: "文章原始連結"
 
 - id: archivedIn
   translation: "歸檔於"
