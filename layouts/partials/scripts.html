@@ -51,3 +51,7 @@
     </script>
 {{- end -}}
 {{- end -}}
+
+{{- range (.Scratch.Get "this").script -}}
+    {{- partial "plugin/script.html" . -}}
+{{- end -}}

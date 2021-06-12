@@ -1,0 +1,45 @@
+{{- $params := .Params | merge .Site.Params.widgets -}}
+
+{{- if eq hugo.Environment "production" -}}
+    {{- .Scratch.Set "comment" $params.comment -}}
+    {{- if eq .Params.comment true -}}
+        {{- .Scratch.Set "comment" .Site.Params.comment -}}
+    {{- else if eq .Params.comment false -}}
+        {{- .Scratch.Set "comment" dict -}}
+    {{- end -}}
+{{- end -}}
+
+
+{{- $comment := .Scratch.Get "comment" | default dict -}}
+{{- $commentConfig := dict -}}
+
+{{- if $comment.enable -}}
+    <div id="comments">
+        {{- /* Disqus Comment System */ -}}
+        {{- $disqus := $comment.disqus | default dict -}}
+        {{- if $disqus.enable -}}
+            <div id="disqus_thread" class="comment"></div>
+            {{- $source := printf "https://%v.disqus.com/embed.js" $disqus.shortname -}}
+            {{- dict "Source" $source "Defer" true | dict "Scratch" .Scratch "Data" | partial "scratch/script.html" -}}
+            <noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript>
+        {{- end -}}
+
+        {{- /* Utterances Comment System */ -}}
+        {{- $utterances := $comment.utterances | default dict -}}
+        {{- if $utterances.enable -}}
+            <div id="utterances"></div>
+            {{- $commentConfig = dict "repo" $utterances.repo | dict "utterances" | merge $commentConfig -}}
+            {{- $commentConfig = $utterances.issueTerm | default "pathname" | dict "issueTerm" | dict "utterances" | merge $commentConfig -}}
+            {{- $commentConfig = dict "label" $utterances.label | dict "utterances" | merge $commentConfig -}}
+            {{- $commentConfig = $utterances.lightTheme | default "github-light" | dict "lightTheme" | dict "utterances" | merge $commentConfig -}}
+            {{- $commentConfig = $utterances.darkTheme | default "github-dark" | dict "darkTheme" | dict "utterances" | merge $commentConfig -}}
+            <noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">Utterances</a>.
+            </noscript>
+        {{- end -}}
+    </div>
+{{- end -}}
+
+{{- dict "comment" $commentConfig | dict "config" | merge (.Scratch.Get "this") | .Scratch.Set "this" -}}
