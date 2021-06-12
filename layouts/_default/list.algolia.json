@@ -7,6 +7,7 @@
         {{- $pages = where $pages "Params.hiddenfromsearch" "!=" true -}}
     {{- end -}}
     {{- $pages = where $pages "Section" "blog" -}}
+    {{- $pages = where $pages "Draft" false -}}
     {{- range $pages -}}
         {{- $uri := .RelPermalink -}}
         {{- if $.Site.Params.widgets.search.absoluteURL -}}
