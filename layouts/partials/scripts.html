@@ -1,3 +1,6 @@
+{{- $params := .Scratch.Get "params" -}}
+{{- $config := (.Scratch.Get "this").config -}}
+
 {{ template "_internal/google_analytics.html" . }}
 <script src="//code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
@@ -31,3 +34,20 @@
 <script defer src=https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-numbers/prism-line-numbers.min.js
     crossorigin=anonymous
     onload="document.querySelectorAll('pre>code').forEach(function(e){e.classList.add('line-numbers')});"></script>
+
+{{- /* search */ -}}
+{{ if .Site.Params.widgets.search.enable }}
+<script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.0/dist/autocomplete.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.9.2/dist/algoliasearch.umd.min.js"></script>
+<script src="{{ "js/theme.js" | relURL }}"></script>
+{{- $search := .Site.Params.widgets.search -}}
+{{- $config = dict "maxResultLength" $search.maxResultLength "snippetLength" $search.snippetLength "highlightTag" $search.highlightTag "noResultsFound" "No results found" | dict "search" | merge $config -}}
+{{- $config = dict "type" "algolia" "algoliaIndex" $search.algolia.index "algoliaAppID" $search.algolia.appID "algoliaSearchKey" $search.algolia.searchKey | dict "search" | merge $config -}}
+{{- /* Config script */ -}}
+{{- $config | jsonify | printf "window.config=%s;" | dict "Content" | dict "Scratch" .Scratch "Data" | partial "scratch/script.html" -}}
+{{- range (.Scratch.Get "this").script -}}
+    <script type="text/javascript">
+        {{- .Content | safeJS -}}
+    </script>
+{{- end -}}
+{{- end -}}

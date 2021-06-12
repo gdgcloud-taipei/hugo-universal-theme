@@ -1,5 +1,5 @@
 <header class="navbar-affixed-top" data-spy="affix" data-offset-top="62">
-    <div class="navbar navbar-default yamm" role="navigation" id="navbar">    
+    <div class="navbar navbar-default yamm" role="navigation" id="navbar">
         <div class="container">
             <div class="navbar-header">
                 <a class="navbar-brand home" href="{{ "/" | relURL }}">
@@ -29,24 +29,19 @@
                         <li><a class="dropdown{{ if eq $current.RelPermalink .URL | or (eq $current.Type $topLevel) | or (and (eq (default (trim .URL "/") .Identifier) "blog") (in (slice "taxonomy" "taxonomyTerm") $current.Kind)) }} active{{ end }}" href="{{ .URL }}">{{ .Name }}</a></li>
                       {{ end }}
                     </ul>
-                    {{ else }}                    
+                    {{ else }}
                     <a target="{{ with .Params.target }}{{ . }}{{ end }}" href="{{ .URL }}">{{ .Pre }}{{ .Name }}</a>
                     {{ end  }}
                   </li>
                   {{ end }}
+                  {{ if isset .Site.Params.widgets "search" }}
+                    {{ if .Site.Params.widgets.search.enable }}
+                      <li>
+                        <a href="#" data-toggle="modal" data-target="#searchModal"><i class='fas fa-search'></i></a>
+                      </li>
+                    {{ end }}
+                  {{ end }}
                 </ul>
-            </div>
-            <!--/.nav-collapse -->
-
-            <div class="collapse clearfix" id="search">    
-                <form class="navbar-form" role="search">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search">
-                        <span class="input-group-btn">
-                    <button type="submit" class="btn btn-template-main"><i class="fas fa-search"></i></button>
-                </span>
-                    </div>
-                </form>
             </div>
             <!--/.nav-collapse -->
         </div>

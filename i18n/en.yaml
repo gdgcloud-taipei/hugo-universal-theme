@@ -43,6 +43,9 @@
 - id: searchTitle
   translation: "Search"
 
+- id: searchPlaceholder
+  translation: "Search titles or contents..."  
+
 - id: tagsTitle
   translation: "Tags"
 

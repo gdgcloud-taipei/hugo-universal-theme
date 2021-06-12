@@ -43,6 +43,9 @@
 - id: searchTitle
   translation: "搜尋"
 
+- id: searchPlaceholder
+  translation: "搜尋標題或內容..."
+
 - id: tagsTitle
   translation: "標籤"
 

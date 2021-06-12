@@ -140,7 +140,28 @@ paginate = 10
 [params.widgets]
     categories = true
     tags = true
-    search = true
+
+[params.widgets.search]
+    enable = false
+    # // support search now
+    type = "algolia" 
+    # max index length of the chunked content
+    contentLength = 4000
+    # placeholder of the search bar
+    placeholder = ""
+    # max number of results length
+    maxResultLength = 10
+    # snippet length of the result
+    snippetLength = 30
+    # HTML tag name of the highlight part in results
+    highlightTag = "em"
+    # whether to use the absolute URL based on the baseURL in search index
+    absoluteURL = false        
+
+[params.widgets.search.algolia]
+    index = ""
+    appID = ""
+    searchKey = "" 
 
 [params.carousel]
     enable = true

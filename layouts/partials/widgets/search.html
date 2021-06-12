@@ -1,22 +1,29 @@
-{{ if isset .Site.Params.widgets "search" }}
-{{ if .Site.Params.widgets.search }}
-<div class="panel panel-default sidebar-menu">
-
-    <div class="panel-heading">
-      <h3 class="panel-title">{{ i18n "searchTitle" }}</h3>
-    </div>
-
-    <div class="panel-body">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" role="search">
-            <div class="input-group">
-                <input type="search" name="q" class="form-control" placeholder="{{ i18n "searchTitle" }}">
-                <input type="hidden" name="sitesearch" value="{{ "/" | absURL }}">
-                <span class="input-group-btn">
-                    <button type="submit" class="btn btn-template-main"><i class="fas fa-search"></i></button>
-                </span>
+{{ if .Site.Params.widgets.search.enable }}
+<div class="modal fade .search-dropdown search" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="searchModalLabel">{{ i18n "searchTitle" }}</h4>
             </div>
-        </form>
+            <div class="modal-body">
+                <span class="menu-item search" id="search-desktop">
+                    <input class="input-lg" type="text" placeholder={{ i18n "searchPlaceholder" }} id="search-input-desktop">
+                    <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                        <i class="fas fa-search fa-fw"></i>
+                    </a>
+                    <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                        <i class="fas fa-times-circle fa-fw"></i>
+                    </a>
+                    <span class="search-button search-loading" id="search-loading-desktop">
+                        <i class="fas fa-spinner fa-fw fa-spin"></i>
+                    </span>
+                </span>
+                <div class="search-dropdown desktop">
+                    <div id="search-dropdown-desktop"></div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-{{ end }}
 {{ end }}
